@@ -1,0 +1,30 @@
+&i2c0 {
+    status = "okay";
+    pinctrl-0 = <&i2c0_default>;
+    pinctrl-1 = <&i2c0_sleep>;
+    pinctrl-names = "default", "sleep";
+    nau: nau@2A{
+        compatible = "i2c-device";
+        status = "okay";
+        reg = <0x2A>;
+    };
+};
+
+
+&pinctrl {
+    /* I2C0 pin configurations */
+    i2c0_default: i2c0_default {
+        group1 {
+            psels = <NRF_PSEL(TWIM_SCL, 0, 31)>,
+                   <NRF_PSEL(TWIM_SDA, 0, 30)>;
+        };
+    };
+
+    i2c0_sleep: i2c0_sleep {
+        group1 {
+            psels = <NRF_PSEL(TWIM_SCL, 0, 31)>,
+                   <NRF_PSEL(TWIM_SDA, 0, 30)>;
+            low-power-enable;
+        };
+    };
+};
